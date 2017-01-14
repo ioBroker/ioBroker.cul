@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "cul",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "news": {
+            "0.1.1": {
+                "en": "Use newer version of cul module",
+                "de": "Benutze neue Version von cul Modul",
+                "ru": "Используется новая версия cul модуля"
+            },
             "0.1.0": {
                 "en": "Update cul package",
                 "de": "Update cul Paket",
@@ -81,6 +86,41 @@
                     "role": "indicator"
                 }
             }
+        }
+    ],
+    "instanceObjects": [
+        {
+            "_id":  "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "info.connection",
+            "type": "state",
+            "common": {
+                "role":  "indicator.connected",
+                "name":  "If connected to CUL",
+                "type":  "boolean",
+                "read":  true,
+                "write": false,
+                "def":   false
+            },
+            "native": {}
+        },
+        {
+            "_id":  "info.rawData",
+            "type": "state",
+            "common": {
+                "role":  "state",
+                "name":  "raw data",
+                "type":  "string",
+                "read":  true,
+                "write": false
+            },
+            "native": {}
         }
     ]
 }
