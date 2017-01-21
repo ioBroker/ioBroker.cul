@@ -66,6 +66,7 @@
         if (!settings.type) settings.type = 'cul';
 
         for (var key in settings) {
+            if (!settings.hasOwnProperty(key)) continue;
             var $value = $('#' + key + '.value');
             // example: select elements with id=key and class=value and insert value
             if ($value.attr('type') === 'checkbox') {

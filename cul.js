@@ -114,8 +114,8 @@ function connect() {
     cul = new Cul(options);
 
     cul.on('close', function () {
-        adapter.states.setState('info.connection', false, true);
-        cul.close();
+        adapter.setState('info.connection', false, true);
+        //cul.close();
         setTimeout(function () {
             cul = null;
             connect();
@@ -123,7 +123,7 @@ function connect() {
     });
 
     cul.on('ready', function () {
-        adapter.states.setState('info.connection', true, true);
+        adapter.setState('info.connection', true, true);
     });
 
     cul.on('data', function (raw, obj) {
@@ -217,7 +217,7 @@ function main() {
 
     adapter.objects.getObject('cul.meta.roles', function (err, res) {
         metaRoles = res.native;
-        adapter.objects.getObjectView('cul', 'devices', function (err, res) {
+        adapter.objects.getObjectView('system', 'device', {startkey: adapter.namespace + '.', endkey: adapter.namespace + '.\u9999'}, function (err, res) {
             for (var i = 0, l = res.total_rows; i < l; i++) {
                 objects[res.rows[i].id] = res.rows[i].value;
             }

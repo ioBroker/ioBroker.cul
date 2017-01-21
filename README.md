@@ -12,6 +12,9 @@ ioBroker adapter to control FS20, Max!, HMS and other devices via [CUL](http://b
 
 
 ## Changelog
+### 0.2.0 (2017-01-21)
+* (bluefox) Add raw data state
+
 ### 0.1.1 (2017-01-14)
 * (bluefox) Use newer version of cul module
 
