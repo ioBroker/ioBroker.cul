@@ -10,8 +10,18 @@
 ioBroker adapter to control FS20, Max!, HMS and other devices via [CUL](http://busware.de/tiki-index.php?page=CUL) /
 [culfw](http://culfw.de). Depends on https://github.com/hobbyquaker/cul
 
+## Supported devices
+
+- *EM* - EM1000WZ, EMWZ
+- *FS20*,
+- *HMS* - HMS100-TF, HMS100-T, HMS100-WD, RM100-2, HMS100-TFK, HMS100-MG, HMS100-CO, HMS100-FIT
+- *MORITZ* - MAX!
+- *WS* - KS300TH, S300TH, WS2000/WS7000
 
 ## Changelog
+### 0.2.2 (2017-01-23)
+* (bluefox) use new npm cul module
+
 ### 0.2.0 (2017-01-21)
 * (bluefox) Add raw data state
 
@@ -29,4 +39,4 @@ ioBroker adapter to control FS20, Max!, HMS and other devices via [CUL](http://b
 
 ## License
 
-[Licensed under GPLv2](LICENSE) Copyright (c) 2014-2016 hobbyquaker
+[Licensed under GPLv2](LICENSE) Copyright (c) 2014-2017 hobbyquaker

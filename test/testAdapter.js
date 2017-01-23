@@ -8,6 +8,7 @@ var states  = null;
 var onStateChanged = null;
 var onObjectChanged = null;
 var sendToID = 1;
+process.env.DEBUG = true;
 
 var adapterShortName = setup.adapterName.substring(setup.adapterName.indexOf('.')+1);
 
@@ -120,14 +121,20 @@ describe('Test ' + adapterShortName + ' adapter', function() {
     });
 /**/
 
-/*
-    PUT YOUR OWN TESTS HERE USING
-    it('Testname', function ( done) {
-        ...
+    it('Test ' + adapterShortName + ' adapter: if variables created', function (done) {
+        this.timeout(5000);
+        setTimeout(function () {
+            objects.getObject('cul.0.FS20.C20600.addressDeviceElv', function (err, obj) {
+                expect(obj).to.be.ok;
+                expect(obj.common).to.be.ok;
+                states.getState('cul.0.FS20.C20600.addressDeviceElv', function (err, state) {
+                    expect(state).to.be.ok;
+                    expect(state.val).to.be.equal('1111');
+                    done();
+                });
+            })
+        }, 1000);
     });
-
-    You can also use "sendTo" method to send messages to the started adapter
-*/
 
     after('Test ' + adapterShortName + ' adapter: Stop js-controller', function (done) {
         this.timeout(10000);

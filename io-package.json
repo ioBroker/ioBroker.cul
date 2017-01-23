@@ -1,9 +1,14 @@
 {
     "common": {
         "name":                     "cul",
-        "version": "0.2.0",
+        "version": "0.2.2",
         "news": {
-            "0.2.1": {
+            "0.2.2": {
+                "en": "use new npm cul module",
+                "de": "Benutze neues cul npm Modul",
+                "ru": "Новый npm пакет cul"
+            },
+            "0.2.0": {
                 "en": "Add raw data state",
                 "de": "Raw Data Zustand hizugefügt",
                 "ru": "Добавлено состояние для raw данных"
@@ -65,7 +70,25 @@
                     "type": "number",
                     "read": true,
                     "write": false,
-                    "role": "cmd"
+                    "role": "state"
+                },
+                "bidirectional": {
+                    "type": "boolean",
+                    "read": true,
+                    "write": false,
+                    "role": "indicator"
+                },
+                "extended": {
+                    "type": "boolean",
+                    "read": true,
+                    "write": false,
+                    "role": "indicator"
+                },
+                "response": {
+                    "type": "boolean",
+                    "read": true,
+                    "write": false,
+                    "role": "indicator"
                 },
                 "temperature": {
                     "type": "number",
@@ -89,6 +112,12 @@
                     "read": true,
                     "write": false,
                     "role": "indicator"
+                },
+                "undefined": {
+                    "type": "string",
+                    "read": true,
+                    "write": false,
+                    "role": "state"
                 }
             }
         }

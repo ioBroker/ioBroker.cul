@@ -1,8 +1,8 @@
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
 
-var Cul = require('cul');
 'use strict';
+var Cul = process.env.DEBUG ? require(__dirname + '/lib/debugCul.js') : require('cul');
 
 // you have to require the utils module and call adapter function
 var utils = require(__dirname + '/lib/utils'); // Get common adapter utils
@@ -38,7 +38,7 @@ adapter.on('unload', function (callback) {
 
 adapter.on('ready', function () {
     checkPort(function (err) {
-        if (!err) {
+        if (!err || process.env.DEBUG) {
             main();
         } else {
             adapter.log.error('Cannot open port: ' + err);
@@ -102,6 +102,66 @@ function checkPort(callback) {
     }
 }
 
+var tasks = [];
+
+function processTasks() {
+    if (tasks.length) {
+        var task = tasks.shift();
+        if (task.type === 'state') {
+            adapter.setForeignState(task.id, task.val, true, function () {
+                setTimeout(processTasks, 0);
+            });
+        } else if (task.type === 'object') {
+            adapter.getForeignObject(task.id, function (err, obj) {
+                if (!obj) {
+                    adapter.setForeignObject(task.id, task.obj, function (err, res) {
+                        adapter.log.info('object ' + adapter.namespace + '.' + task.id + ' created');
+                        setTimeout(processTasks, 0);
+                    });
+                } else {
+                    var changed = false;
+                    if (JSON.stringify(obj.native) !== JSON.stringify(task.obj.native)) {
+                        obj.native = task.obj.native;
+                        changed = true;
+                    }
+
+                    if (changed) {
+                        adapter.setForeignObject(obj._id, obj, function (err, res) {
+                            adapter.log.info('object ' + adapter.namespace + '.' + obj._id + ' created');
+                            setTimeout(processTasks, 0);
+                        });
+                    } else {
+                        setTimeout(processTasks, 0);
+                    }
+                }
+            });
+        }
+    }
+}
+
+function setStates(obj) {
+    var id = obj.protocol + '.' + obj.address;
+    var isStart = !tasks.length;
+
+    for (var state in obj.data) {
+        if (!obj.data.hasOwnProperty(state)) continue;
+        var oid  = adapter.namespace + '.' + id + '.' + state;
+        var meta = objects[oid];
+        var val  = obj.data[state];
+        if (meta) {
+            if (meta.common.type === 'boolean') {
+                val = val === 'true' || val === true || val === 1 || val === '1' || val === 'on';
+            } else if (meta.common.type === 'number') {
+                if (val === 'on'  || val === 'true'  || val === true)  val = 1;
+                if (val === 'off' || val === 'false' || val === false) val = 0;
+                val = parseFloat(val);
+            }
+        }
+        tasks.push({type: 'state', id: oid, val: val});
+    }
+    if (isStart) processTasks();
+}
+
 function connect() {
     var options = {
         serialport: adapter.config.serialport || '/dev/ttyACM0',
@@ -133,51 +193,51 @@ function connect() {
         if (!obj || !obj.protocol || !obj.address) return;
         var id = obj.protocol + '.' + obj.address;
 
-        for (var state in obj.data) {
-            if (!obj.data.hasOwnProperty(state)) continue;
-            adapter.setState(id + '.' + state, obj.data[state], true);
-        }
+        var isStart = !tasks.length;
+        if (!objects[adapter.namespace + '.' + id]) {
 
-        if (!objects[id]) {
             var newObjects = [];
             var tmp = JSON.parse(JSON.stringify(obj));
             delete tmp.data;
 
             var newDevice = {
-                _id:    id,
+                _id:    adapter.namespace + '.' + id,
                 type:   'device',
                 common: {
-                    name: obj.device + ' ' + obj.address
+                    name: (obj.device ? obj.device + ' ' : '') + obj.address
                 },
                 native: tmp
             };
             for (var _state in obj.data) {
                 if (!obj.data.hasOwnProperty(_state)) continue;
-                var common = {};
+                var common;
 
-                if (metaRoles[obj.device + '_' + _state]) {
-                    common = metaRoles[obj.device + '_' + _state];
+                if (obj.device && metaRoles[obj.device + '_' + _state]) {
+                    common = JSON.parse(JSON.stringify(metaRoles[obj.device + '_' + _state]));
                 } else if (metaRoles[_state]) {
-                    common = metaRoles[_state];
+                    common = JSON.parse(JSON.stringify(metaRoles[_state]));
+                } else {
+                    common = JSON.parse(JSON.stringify(metaRoles['undefined']));
                 }
 
-                common.name = _state + ' ' + obj.device + ' ' + id;
+                common.name = _state + ' ' + (obj.device ? obj.device + ' ' : '') + id;
 
                 var newState = {
-                    _id:    id + '.' + _state,
+                    _id:    adapter.namespace + '.' + id + '.' + _state,
                     type:   'state',
                     common: common,
                     native: {}
                 };
 
-                objects[id + '.' + _state] = newState;
-                newObjects.push(newState);
+                objects[adapter.namespace + '.' + id + '.' + _state] = newState;
+                tasks.push({type: 'object', id: newState._id, obj: newState});
             }
-            objects[id] = newDevice;
-            newObjects.push(newDevice);
-
-            insertObjects();
+            objects[adapter.namespace + '.' + id] = newDevice;
+            tasks.push({type: 'object', id: newDevice._id, obj: newDevice});
         }
+
+        setStates(obj);
+        if (isStart) processTasks();
     });
 
 }
@@ -185,29 +245,7 @@ function connect() {
 function insertObjects(objs, cb) {
     if (objs && objs.length) {
         var newObject = objs.pop();
-        adapter.getObject(newObject._id, function (err, obj) {
-            if (!obj) {
-                adapter.setObject(newObject._id, newObject, function (err, res) {
-                    adapter.log.info('object ' + adapter.namespace + '.' + newObject._id + ' created');
-                    setTimeout(insertObjects, 0, objs);
-                });
-            } else {
-                var changed = false;
-                if (JSON.stringify(obj.native) !== JSON.stringify(newObject.native)) {
-                    obj.native = newObject.native;
-                    changed = true;
-                }
 
-                if (changed) {
-                    adapter.setObject(obj._id, obj, function (err, res) {
-                        adapter.log.info('object ' + adapter.namespace + '.' + newObject._id + ' created');
-                        setTimeout(insertObjects, 0, objs);
-                    });
-                } else {
-                    setTimeout(insertObjects, 0, objs);
-                }
-            }
-        });
     } else if (cb) {
         cb();
     }
@@ -218,10 +256,15 @@ function main() {
     adapter.objects.getObject('cul.meta.roles', function (err, res) {
         metaRoles = res.native;
         adapter.objects.getObjectView('system', 'device', {startkey: adapter.namespace + '.', endkey: adapter.namespace + '.\u9999'}, function (err, res) {
-            for (var i = 0, l = res.total_rows; i < l; i++) {
+            for (var i = 0, l = res.rows.length; i < l; i++) {
                 objects[res.rows[i].id] = res.rows[i].value;
             }
-            connect();
+            adapter.objects.getObjectView('system', 'state', {startkey: adapter.namespace + '.', endkey: adapter.namespace + '.\u9999'}, function (err, res) {
+                for (var i = 0, l = res.rows.length; i < l; i++) {
+                    objects[res.rows[i].id] = res.rows[i].value;
+                }
+                connect();
+            });
         });
     });
 }
