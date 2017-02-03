@@ -34,7 +34,12 @@ function copyFileSync(source, target) {
         }
     }
 
-    fs.writeFileSync(targetFile, fs.readFileSync(source));
+    try {
+        fs.writeFileSync(targetFile, fs.readFileSync(source));
+    }
+    catch (err) {
+        console.log("file copy error: " +source +" -> " + targetFile + " (error ignored)");
+    }
 }
 
 function copyFolderRecursiveSync(source, target, ignore) {
@@ -454,17 +459,15 @@ function startAdapter(objects, states, callback) {
         try {
             if (debug) {
                 // start controller
-                pid = child_process.exec('node node_modules/' + pkg.name + '/' + pkg.main + ' --logs debug', {
+                pid = child_process.exec('node node_modules/' + pkg.name + '/' + pkg.main + ' --console debug', {
                     cwd: rootDir + 'tmp',
-                    stdio: [0, 1, 2],
-                    env: {DEBUG: true}
+                    stdio: [0, 1, 2]
                 });
             } else {
                 // start controller
-                pid = child_process.fork('node_modules/' + pkg.name + '/' + pkg.main, ['--logs', 'debug'], {
+                pid = child_process.fork('node_modules/' + pkg.name + '/' + pkg.main, ['--console', 'debug'], {
                     cwd:   rootDir + 'tmp',
-                    stdio: [0, 1, 2, 'ipc'],
-                    env: {DEBUG: true}
+                    stdio: [0, 1, 2, 'ipc']
                 });
             }
         } catch (error) {
