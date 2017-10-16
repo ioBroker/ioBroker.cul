@@ -1,6 +1,6 @@
 {
     "common": {
-        "name":                     "cul",
+        "name": "cul",
         "version": "0.2.2",
         "news": {
             "0.2.2": {
@@ -24,25 +24,40 @@
                 "ru": "Обновлён CUL модуль"
             }
         },
-        "title":                    "CUL/culfw",
-        "desc":                     "Javascript/Node.js based Busware CUL USB / culfw adapter",
-        "platform":                 "javascript/Node.js",
-        "mode":                     "daemon",
-        "loglevel":                 "info",
-        "license":                  "GPL-2.0",
-        "enabled":                  true,
-        "messagebox":               true,
-        "icon":                     "busware.jpg",
-        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.cul/master/admin/busware.jpg",
-        "keywords":                 ["cul", "coc", "cuno", "FS20", "MAX!", "HMS", "FHT", "EM", "ELV", "868", "busware"],
-		"readme":                   "https://github.com/ioBroker/ioBroker.cul/blob/master/README.md",
-		"type":                     "hardware"
+        "title": "CUL/culfw",
+        "desc": "Javascript/Node.js based Busware CUL USB / culfw adapter",
+        "platform": "javascript/Node.js",
+        "mode": "daemon",
+        "loglevel": "info",
+        "license": "GPL-2.0",
+        "enabled": true,
+        "messagebox": true,
+        "icon": "busware.jpg",
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.cul/master/admin/busware.jpg",
+        "keywords": [
+            "cul",
+            "coc",
+            "cuno",
+            "FS20",
+            "MAX!",
+            "HMS",
+            "FHT",
+            "EM",
+            "ELV",
+            "868",
+            "busware"
+        ],
+        "readme": "https://github.com/ioBroker/ioBroker.cul/blob/master/README.md",
+        "type": "iot-systems",
+        "authors": [
+            "hobbyquaker <hq@ccu.io>"
+        ]
     },
     "native": {
         "serialport": "",
-        "baudrate":   9600,
-        "mode":       "SlowRF",
-        "type":       "cul"
+        "baudrate": 9600,
+        "mode": "SlowRF",
+        "type": "cul"
     },
     "objects": [
         {
@@ -62,9 +77,7 @@
                 "type": "roles",
                 "adapter": "cul"
             },
-            "common": {
-
-            },
+            "common": {},
             "native": {
                 "cmd": {
                     "type": "number",
@@ -108,7 +121,11 @@
                 },
                 "battery": {
                     "type": "number",
-                    "list": ["ok", "empty", "replaced"],
+                    "list": [
+                        "ok",
+                        "empty",
+                        "replaced"
+                    ],
                     "read": true,
                     "write": false,
                     "role": "indicator"
@@ -124,7 +141,7 @@
     ],
     "instanceObjects": [
         {
-            "_id":  "info",
+            "_id": "info",
             "type": "channel",
             "common": {
                 "name": "Information"
@@ -132,26 +149,26 @@
             "native": {}
         },
         {
-            "_id":  "info.connection",
+            "_id": "info.connection",
             "type": "state",
             "common": {
-                "role":  "indicator.connected",
-                "name":  "If connected to CUL",
-                "type":  "boolean",
-                "read":  true,
+                "role": "indicator.connected",
+                "name": "If connected to CUL",
+                "type": "boolean",
+                "read": true,
                 "write": false,
-                "def":   false
+                "def": false
             },
             "native": {}
         },
         {
-            "_id":  "info.rawData",
+            "_id": "info.rawData",
             "type": "state",
             "common": {
-                "role":  "state",
-                "name":  "raw data",
-                "type":  "string",
-                "read":  true,
+                "role": "state",
+                "name": "raw data",
+                "type": "string",
+                "read": true,
                 "write": false
             },
             "native": {}
