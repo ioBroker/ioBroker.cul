@@ -26,9 +26,9 @@
         },
         "title": "CUL/culfw",
         "desc":                     {
-            "en": "Javascript/Node.js based Busware CUL USB / culfw adapter",
+            "en": "Busware CUL USB / culfw adapter",
             "de": "Adapter zur Anbindung von Busware CUL /nzur Steuerung von FS20 Geräten",
-            "ru": "Javascript/Node.js based Busware CUL USB / culfw adapter"
+            "ru": "Busware CUL USB / culfw драйвер"
         },
         "platform": "javascript/Node.js",
         "mode": "daemon",
