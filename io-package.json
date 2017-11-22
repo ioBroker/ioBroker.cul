@@ -5,17 +5,17 @@
         "news": {
             "0.2.2": {
                 "en": "use new npm cul module",
-                "de": "Benutze neues cul npm Modul",
+                "de": "Verwendet neues cul npm Modul",
                 "ru": "Новый npm пакет cul"
             },
             "0.2.0": {
                 "en": "Add raw data state",
-                "de": "Raw Data Zustand hizugefügt",
+                "de": "Raw Data Zustand hinzugefügt",
                 "ru": "Добавлено состояние для raw данных"
             },
             "0.1.1": {
                 "en": "Use newer version of cul module",
-                "de": "Benutze neue Version von cul Modul",
+                "de": "Verwendet neue Version von cul Modul",
                 "ru": "Используется новая версия cul модуля"
             },
             "0.1.0": {
@@ -25,7 +25,11 @@
             }
         },
         "title": "CUL/culfw",
-        "desc": "Javascript/Node.js based Busware CUL USB / culfw adapter",
+        "desc":                     {
+            "en": "Javascript/Node.js based Busware CUL USB / culfw adapter",
+            "de": "Adapter zur Anbindung von Busware CUL /nzur Steuerung von FS20 Geräten",
+            "ru": "Javascript/Node.js based Busware CUL USB / culfw adapter"
+        },
         "platform": "javascript/Node.js",
         "mode": "daemon",
         "loglevel": "info",
