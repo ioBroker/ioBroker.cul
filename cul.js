@@ -12,7 +12,7 @@ var objects   = {};
 var metaRoles = {};
 var SerialPort;
 
-var adapter = utils.adapter('cul');
+var adapter = utils.Adapter('cul');
 
 try {
     SerialPort = require('serialport');//.SerialPort;
