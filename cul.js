@@ -76,17 +76,17 @@ function checkPort(callback) {
     var sPort;
     try {
         sPort = new SerialPort(adapter.config.serialport || '/dev/ttyACM0', {
-            baudrate: parseInt(adapter.config.baudrate, 10) || 9600,
+            baudRate: parseInt(adapter.config.baudrate, 10) || 9600,
             autoOpen: false
         });
         sPort.on('error', function (err) {
-            if (sPort.isOpen()) sPort.close();
+            if (sPort.isOpen) sPort.close();
             if (callback) callback(err);
             callback = null;
         });
 
         sPort.open(function (err) {
-            if (sPort.isOpen()) sPort.close();
+            if (sPort.isOpen) sPort.close();
 
             if (callback) callback(err);
             callback = null;
@@ -94,7 +94,7 @@ function checkPort(callback) {
     } catch (e) {
         adapter.log.error('Cannot open port: ' + e);
         try {
-            if (sPort.isOpen()) sPort.close();
+            if (sPort.isOpen) sPort.close();
         } catch (ee) {
 
         }
@@ -268,5 +268,3 @@ function main() {
         });
     });
 }
-
-

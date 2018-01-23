@@ -19,6 +19,9 @@ ioBroker adapter to control FS20, Max!, HMS and other devices via [CUL](http://b
 - *WS* - KS300TH, S300TH, WS2000/WS7000
 
 ## Changelog
+### 0.3.0 (2018-01-23)
+* (Apollon77) Upgrade Serialport Library
+
 ### 0.2.2 (2017-01-23)
 * (bluefox) use new npm cul module
 
