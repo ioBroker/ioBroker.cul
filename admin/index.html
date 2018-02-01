@@ -25,7 +25,9 @@
         "Baud rate":        {"en": "Baud rate:",        "de": "Baud rate:",     "ru": "Скорость:"},
         "Mode":             {"en": "Mode",              "de": "Modus:",         "ru": "Режим:"},
         "Type:":            {"en": "Type:",             "de": "Typ:",           "ru": "Тип:"},
-        "Select port":      {"en": "Select port",       "de": "Port auswählen", "ru": "Select port"}
+        "Select port":      {"en": "Select port",       "de": "Port auswählen", "ru": "Select port"},
+        "IP/Hostname:":     {"en": "IP/Hostname:",      "de": "IP/Hostname:",   "ru": "IP/Hostname:"},
+        "Port":             {"en": "Port:",             "de": "Port:",          "ru": "Port:"}
     };
 
     var timeout;
@@ -137,7 +139,7 @@
             <td><label  class="translate" for="serialport">Serial port:</label></td>
             <td id="_serialport"><select id="serialport" class="value"></select></td>
         </tr>
-        <tr>
+       <tr>
             <td class="translate">Baud rate</td>
             <td><select type="text" id="baudrate"   class="value">
                 <option value="110">110</option>
@@ -171,8 +173,19 @@
                 <option value="cul">CUL</option>
                 <option value="coc">COC</option>
                 <option value="scc">SCC</option>
+                <option value="cuno">CUNO</option>
             </select></td>
         </tr>
+
+        <tr>
+            <td><label for="ip" class="translate">IP/Hostname:</label></td>
+	    <td><input id="ip" class="value" value="127.0.0.1"></input></td>
+        </tr>
+	<tr>
+            <td><label for="port" class="translate">Port:</label></td>
+	    <td><input id="port" class="value" value="23"></input></td>
+        </tr>
+
     </table>
 
 </div>

@@ -11,6 +11,8 @@ var cul;
 var objects   = {};
 var metaRoles = {};
 var SerialPort;
+var Net;
+var Promise;
 
 var adapter = utils.Adapter('cul');
 
@@ -19,7 +21,16 @@ try {
 } catch (e) {
     console.warn('Serial port is not available');
 }
-
+try {
+    Net = require('net');
+} catch (e) {
+    console.warn('Net is not available');
+}
+try {
+    Promise = require('bluebird');
+} catch (e) {
+    console.warn('Bluebird is not available');
+}
 
 adapter.on('stateChange', function (id, state) {
     //if (cul) cul.cmd();
@@ -68,37 +79,66 @@ adapter.on('message', function (obj) {
     }
 });
 
+function checkConnection(host, port, timeout) {
+    return new Promise(function(resolve, reject) {
+        timeout = timeout || 10000; //default 10 seconds
+        var timer = setTimeout(function() {
+            reject("Timeout");
+            socket.end();
+        }, timeout);
+        var socket = Net.createConnection(port, host, function() {
+            clearTimeout(timer);
+            resolve();
+            socket.end();
+        });
+        socket.on('error', function(err) {
+            clearTimeout(timer);
+            reject(err);
+        });
+    });
+}
+
 function checkPort(callback) {
-    if (!adapter.config.serialport) {
-        if (callback) callback('Port is not selected');
-        return;
-    }
-    var sPort;
-    try {
-        sPort = new SerialPort(adapter.config.serialport || '/dev/ttyACM0', {
-            baudRate: parseInt(adapter.config.baudrate, 10) || 9600,
-            autoOpen: false
-        });
-        sPort.on('error', function (err) {
-            if (sPort.isOpen) sPort.close();
+    if(adapter.config.type === 'cuno') {
+        checkConnection(adapter.config.ip, adapter.config.port).then(function() {
+            if (callback) callback(null);
+            callback = null;
+	}, function(err) {
             if (callback) callback(err);
             callback = null;
-        });
-
-        sPort.open(function (err) {
-            if (sPort.isOpen) sPort.close();
-
-            if (callback) callback(err);
-            callback = null;
-        });
-    } catch (e) {
-        adapter.log.error('Cannot open port: ' + e);
-        try {
-            if (sPort.isOpen) sPort.close();
-        } catch (ee) {
-
+        })
+    } else {
+        if (!adapter.config.serialport) {
+            if (callback) callback('Port is not selected');
+            return;
         }
-        if (callback) callback(e);
+        var sPort;
+        try {
+            sPort = new SerialPort(adapter.config.serialport || '/dev/ttyACM0', {
+                baudRate: parseInt(adapter.config.baudrate, 10) || 9600,
+                autoOpen: false
+            });
+            sPort.on('error', function (err) {
+                if (sPort.isOpen) sPort.close();
+                if (callback) callback(err);
+                callback = null;
+            });
+
+            sPort.open(function (err) {
+                if (sPort.isOpen) sPort.close();
+
+                if (callback) callback(err);
+                callback = null;
+            });
+        } catch (e) {
+            adapter.log.error('Cannot open port: ' + e);
+            try {
+                if (sPort.isOpen) sPort.close();
+            } catch (ee) {
+
+            }
+            if (callback) callback(e);
+        }
     }
 }
 
@@ -164,11 +204,14 @@ function setStates(obj) {
 
 function connect() {
     var options = {
+        connectionMode: adapter.config.type === 'cuno' ? 'telnet' : 'serial' ,
         serialport: adapter.config.serialport || '/dev/ttyACM0',
         mode:       adapter.config.mode       || 'SlowRF',
         baudrate:   parseInt(adapter.config.baudrate, 10) || 9600,
         scc:        adapter.config.type === 'scc',
-        coc:        adapter.config.type === 'coc'
+        coc:        adapter.config.type === 'coc',
+        host:       adapter.config.ip,
+        port:       adapter.config.port,
     };
 
     cul = new Cul(options);
