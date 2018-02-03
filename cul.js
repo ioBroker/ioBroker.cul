@@ -26,11 +26,6 @@ try {
 } catch (e) {
     console.warn('Net is not available');
 }
-try {
-    Promise = require('bluebird');
-} catch (e) {
-    console.warn('Bluebird is not available');
-}
 
 adapter.on('stateChange', function (id, state) {
     //if (cul) cul.cmd();
@@ -48,6 +43,7 @@ adapter.on('unload', function (callback) {
 });
 
 adapter.on('ready', function () {
+    adapter.setState('info.connection', false, false);
     checkPort(function (err) {
         if (!err || process.env.DEBUG) {
             main();
@@ -79,31 +75,30 @@ adapter.on('message', function (obj) {
     }
 });
 
-function checkConnection(host, port, timeout) {
-    return new Promise(function(resolve, reject) {
+function checkConnection(host, port, timeout, callback) {
         timeout = timeout || 10000; //default 10 seconds
         var timer = setTimeout(function() {
-            reject("Timeout");
             socket.end();
+            callback("Timeout");
+            callback = null;
         }, timeout);
         var socket = Net.createConnection(port, host, function() {
             clearTimeout(timer);
-            resolve();
             socket.end();
+            callback(null);
+            callback = null;
         });
         socket.on('error', function(err) {
             clearTimeout(timer);
-            reject(err);
+            socket.end();
+            callback(err);
+            callback = null;
         });
-    });
 }
 
 function checkPort(callback) {
     if(adapter.config.type === 'cuno') {
-        checkConnection(adapter.config.ip, adapter.config.port).then(function() {
-            if (callback) callback(null);
-            callback = null;
-	}, function(err) {
+        checkConnection(adapter.config.ip, adapter.config.port, 10000, function(err) {
             if (callback) callback(err);
             callback = null;
         })

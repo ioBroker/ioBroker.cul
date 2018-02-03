@@ -26,8 +26,7 @@
   },
   "dependencies": {
     "cul": "0.7.0",
-    "serialport": "^6.0.4",
-    "bluebird": "^3.5.1"
+    "serialport": "^6.0.4"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
