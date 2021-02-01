@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "cul": "^0.16.0",
-    "serialport": "^9.0.4",
+    "serialport": "^9.0.6",
     "@iobroker/adapter-core": "^2.4.0"
   },
   "devDependencies": {
