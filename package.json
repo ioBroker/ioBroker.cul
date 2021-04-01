@@ -19,7 +19,7 @@
     "url": "https://github.com/ioBroker/ioBroker.cul"
   },
   "dependencies": {
-    "cul": "^0.16.0",
+    "cul": "^0.17.0",
     "serialport": "^9.0.7",
     "@iobroker/adapter-core": "^2.4.0"
   },
