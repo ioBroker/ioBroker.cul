@@ -29,7 +29,7 @@
     "@alcalzone/release-script-plugin-license": "^3.5.9",
     "@iobroker/legacy-testing": "^0.3.7",
     "gulp": "^4.0.2",
-    "axios": "^1.4.0"
+    "axios": "^1.7.9"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.cul/issues"
