@@ -3,3 +3,5 @@ node_modules
 .DS_Store
 package-lock.json
 mqttServer.js
+#ignore .commitinfo created by ioBroker release script
+.commitinfo
