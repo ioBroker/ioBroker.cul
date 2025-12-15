@@ -90,7 +90,6 @@
         "zh-cn": "在启动时检查所有必需的对象是否已存在（Sentry IOBROKER-CUL-C）\n修复Moritz设备崩溃案例（Sentry IOBROKER-CUL-7）"
       }
     },
-    "title": "CUL/culfw",
     "titleLang": {
       "en": "CUL/culfw",
       "de": "CUL/culfw",
