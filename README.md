@@ -111,4 +111,4 @@ Javascript/Node.js based `Busware CUL USB / culfw` adapter
 
 ## License
 
-[Licensed under GPLv2](LICENSE) Copyright (c) 2014-2023 hobbyquaker
+[Licensed under GPLv2](LICENSE) Copyright (c) 2014-2026 hobbyquaker
