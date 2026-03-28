@@ -18,7 +18,7 @@ let connectTimeout;
 let checkConnectionTimer;
 
 try {
-    Net = require('net');
+    Net = require('node:net');
 } catch (e) {
     console.warn('Net is not available');
 }
