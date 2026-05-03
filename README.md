@@ -109,6 +109,8 @@ Javascript/Node.js based `Busware CUL USB / culfw` adapter
 ### 0.0.3 (2015-03-03)
 * (bluefox) try to bring the adapter to state of the art
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 [Licensed under GPLv2](LICENSE) Copyright (c) 2014-2023 hobbyquaker
