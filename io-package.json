@@ -121,7 +121,6 @@
     "license": "GPL-2.0-or-later",
     "enabled": true,
     "messagebox": true,
-    "materialize": true,
     "compact": true,
     "icon": "busware.jpg",
     "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.cul/master/admin/busware.jpg",
@@ -145,7 +144,7 @@
     ],
     "dependencies": [
       {
-        "js-controller": ">=2.0.0"
+        "js-controller": ">=6.0.11"
       }
     ],
     "adminUI": {
