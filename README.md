@@ -37,6 +37,9 @@ Javascript/Node.js based `Busware CUL USB / culfw` adapter
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (bluefox) The serial port can be entered manually now, so a symlink below `/dev/serial/by-id` can be used (#150)
+* (bluefox) The port list offers the `/dev/serial/by-id` symlinks in addition to the `/dev/ttyUSBx` devices on Linux. They are not hidden behind the experimental option any more and do not replace the device paths any more
 
 ## Changelog
 ### 3.0.0 (2026-08-25)
@@ -50,7 +53,7 @@ Javascript/Node.js based `Busware CUL USB / culfw` adapter
 * (bluefox) The debug driver, that replayed `lib/rawData.txt` when the environment variable `DEBUG` was set, was removed
 
 ### 2.2.0 (2023-04-17)
-* (jpk) Select port by ID instead of name as option
+* (jpk) Select port by ID instead of name as an option
 * (bluefox) Updated GUI for admin 6
 
 ### 2.0.2 (2022-05-11)

@@ -6,5 +6,6 @@
     "Not available": "Non disponibile",
     "Port": "Porta",
     "Serial port": "Porta seriale",
+    "Serial port help": "È anche possibile inserire manualmente un percorso del dispositivo, ad esempio un collegamento simbolico in /dev/serial/by-id, che sopravvive al ricollegamento della chiavetta",
     "Type": "genere"
 }

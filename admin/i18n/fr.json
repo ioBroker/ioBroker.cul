@@ -6,5 +6,6 @@
     "Not available": "Indisponible",
     "Port": "Port",
     "Serial port": "Port série",
+    "Serial port help": "Un chemin de périphérique peut aussi être saisi manuellement, par exemple un lien symbolique sous /dev/serial/by-id, qui survit à un rebranchement de la clé",
     "Type": "Type"
 }

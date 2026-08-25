@@ -6,5 +6,6 @@
     "Not available": "Niet beschikbaar",
     "Port": "Haven",
     "Serial port": "Seriële poort",
+    "Serial port help": "Je kunt ook handmatig een apparaatpad invoeren, bijvoorbeeld een symlink onder /dev/serial/by-id, die het opnieuw inpluggen van de stick overleeft",
     "Type": "Type"
 }

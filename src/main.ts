@@ -11,7 +11,7 @@ import { createConnection, type Socket } from 'node:net';
 
 import type { SerialPort } from 'serialport';
 import type { Cul as CulDevice } from 'cul' with { 'resolution-mode': 'import' };
-import type { ListUartMessage, MetaRole, MetaRoles, PortOption, SendMessage, SendRawMessage, Task } from './lib/types';
+import type { MetaRole, MetaRoles, PortOption, SendMessage, SendRawMessage, Task } from './lib/types';
 
 /** Serial device that is used when nothing is configured */
 const DEFAULT_SERIAL_PORT = '/dev/ttyACM0';
@@ -451,8 +451,6 @@ class CulAdapter extends Adapter {
 
     /** Port list for `admin/jsonConfig.json` */
     private async listUart(obj: ioBroker.Message): Promise<void> {
-        const message = (obj.message ?? {}) as ListUartMessage;
-
         if (!this.serialPortClass) {
             this.log.warn('Module serialport is not available');
             this.sendTo(obj.from, obj.command, [{ label: 'Not available', value: '' }], obj.callback);
@@ -463,17 +461,20 @@ class CulAdapter extends Adapter {
             const ports: SerialPortInfo[] = await this.serialPortClass.list();
             this.log.info(`List of port: ${JSON.stringify(ports)}`);
 
-            let result: PortOption[];
-            if (message.experimental) {
-                // the symlinks below /dev/serial/by-id survive a re-plug, the /dev/ttyUSBx does not
-                result = ports
-                    .filter(port => port.pnpId)
-                    .map(port => ({
-                        value: `${SERIAL_BY_ID_DIR}/${port.pnpId}`,
-                        label: `${SERIAL_BY_ID_DIR}/${port.pnpId}${port.manufacturer ? `[${port.manufacturer}]` : ''}`,
-                    }));
-            } else {
-                result = ports.map(port => ({ value: port.path, label: port.path }));
+            const result: PortOption[] = [];
+            for (const port of ports) {
+                result.push({ value: port.path, label: port.path });
+
+                // Only on Linux `pnpId` is the name of the symlink below /dev/serial/by-id. On Windows it is a
+                // registry hardware ID and on macOS it is not reported at all, so the path would be nonsense there.
+                if (process.platform === 'linux' && port.pnpId) {
+                    // the symlinks below /dev/serial/by-id survive a re-plug, the /dev/ttyUSBx does not
+                    const byId = `${SERIAL_BY_ID_DIR}/${port.pnpId}`;
+                    result.push({
+                        value: byId,
+                        label: `${byId}${port.manufacturer ? ` [${port.manufacturer}]` : ''}`,
+                    });
+                }
             }
 
             this.sendTo(obj.from, obj.command, result, obj.callback);

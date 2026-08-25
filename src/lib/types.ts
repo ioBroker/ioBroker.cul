@@ -46,8 +46,3 @@ export interface SendMessage {
 export interface SendRawMessage {
     command: string;
 }
-
-/** Payload of the `listUart5` message */
-export interface ListUartMessage {
-    experimental?: boolean;
-}

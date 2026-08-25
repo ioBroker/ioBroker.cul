@@ -6,5 +6,6 @@
     "Not available": "Not available",
     "Port": "Port",
     "Serial port": "Serial port",
+    "Serial port help": "You can also enter a device path manually, e.g. a symlink below /dev/serial/by-id, which survives a re-plug of the stick",
     "Type": "Type"
 }

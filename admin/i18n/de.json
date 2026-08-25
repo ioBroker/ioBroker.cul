@@ -6,5 +6,6 @@
     "Not available": "Nicht verfügbar",
     "Port": "Port",
     "Serial port": "Serielle Schnittstelle",
+    "Serial port help": "Es kann auch ein Pfad von Hand eingegeben werden, z. B. ein Symlink unterhalb von /dev/serial/by-id, der ein erneutes Einstecken des Sticks übersteht",
     "Type": "Typ"
 }

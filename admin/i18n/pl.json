@@ -6,5 +6,6 @@
     "Not available": "Niedostępne",
     "Port": "Port",
     "Serial port": "Port szeregowy",
+    "Serial port help": "Ścieżkę urządzenia można też wpisać ręcznie, np. dowiązanie symboliczne w /dev/serial/by-id, które przetrwa ponowne podłączenie sticka",
     "Type": "Typ"
 }

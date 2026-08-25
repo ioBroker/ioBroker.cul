@@ -6,5 +6,6 @@
     "Not available": "Não disponível",
     "Port": "Porta",
     "Serial port": "Interface serial",
+    "Serial port help": "Também é possível introduzir manualmente um caminho de dispositivo, por exemplo, uma ligação simbólica em /dev/serial/by-id, que se mantém após voltar a ligar o stick",
     "Type": "Tipo"
 }

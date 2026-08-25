@@ -96,7 +96,7 @@ hidden for `cuno` and the network fields for everything else.
 
 | command | used by | returns |
 | --- | --- | --- |
-| `listUart5` | `serialport` field (`autocompleteSendTo`) | `{value,label}[]`, with `experimental` the `/dev/serial/by-id` symlinks |
+| `listUart5` | `serialport` field (`autocompleteSendTo`, `freeSolo`) | `{value,label}[]` with every device path, plus the `/dev/serial/by-id` symlink of each port on Linux |
 | `listUart` | nothing any more — kept because user scripts may call it | the format of the removed HTML dialog |
 | `send` | user scripts | — |
 | `sendraw` | user scripts | — |

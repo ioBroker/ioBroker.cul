@@ -6,5 +6,6 @@
     "Not available": "No disponible",
     "Port": "Puerto",
     "Serial port": "Puerto serial",
+    "Serial port help": "También se puede introducir manualmente una ruta de dispositivo, por ejemplo un enlace simbólico en /dev/serial/by-id, que se mantiene tras volver a conectar el stick",
     "Type": "Tipo"
 }

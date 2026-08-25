@@ -6,5 +6,6 @@
     "Not available": "不可用",
     "Port": "端口",
     "Serial port": "串口",
+    "Serial port help": "也可以手动输入设备路径，例如 /dev/serial/by-id 下的符号链接，重新插拔适配器后该路径依然有效",
     "Type": "类型"
 }
