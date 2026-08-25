@@ -90,6 +90,62 @@
         "zh-cn": "在启动时检查所有必需的对象是否已存在（Sentry IOBROKER-CUL-C）\n修复Moritz设备崩溃案例（Sentry IOBROKER-CUL-7）"
       }
     },
+    "messages": [
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "oldVersion<3.0.0",
+            "newVersion>=3.0.0"
+          ]
+        },
+        "title": {
+          "en": "Datapoint names have changed",
+          "de": "Datenpunktnamen haben sich geändert",
+          "ru": "Имена точек данных изменились",
+          "pt": "Os nomes dos pontos de dados mudaram",
+          "nl": "Datapuntnamen zijn gewijzigd",
+          "fr": "Les noms des points de données ont changé",
+          "it": "I nomi dei datapoint sono cambiati",
+          "es": "Los nombres de los puntos de datos han cambiado",
+          "pl": "Nazwy punktów danych uległy zmianie",
+          "uk": "Імена точок даних змінилися",
+          "zh-cn": "数据点名称已更改"
+        },
+        "text": {
+          "en": "The 'cul' library was updated to version 1.0.0 and renamed some datapoints: 'battery' became 'batteryLow' and 'batteryState', 'window' and 'isopen' became 'open', 'valveposition' became 'valvePosition'. The old states are not updated any more and can be deleted. Please adapt your scripts, visualizations and history settings.",
+          "de": "Die Bibliothek 'cul' wurde auf Version 1.0.0 aktualisiert und hat einige Datenpunkte umbenannt: aus 'battery' wurden 'batteryLow' und 'batteryState', aus 'window' und 'isopen' wurde 'open', aus 'valveposition' wurde 'valvePosition'. Die alten Zustände werden nicht mehr aktualisiert und können gelöscht werden. Bitte passen Sie Ihre Skripte, Visualisierungen und History-Einstellungen an.",
+          "ru": "Библиотека «cul» обновлена до версии 1.0.0, при этом некоторые точки данных были переименованы: «battery» превратилась в «batteryLow» и «batteryState», «window» и «isopen» — в «open», «valveposition» — в «valvePosition». Старые состояния больше не обновляются и могут быть удалены. Пожалуйста, измените свои скрипты, визуализации и настройки истории.",
+          "pt": "A biblioteca 'cul' foi atualizada para a versão 1.0.0 e renomeou alguns pontos de dados: 'battery' passou a ser 'batteryLow' e 'batteryState', 'window' e 'isopen' passaram a ser 'open', 'valveposition' passou a ser 'valvePosition'. Os estados antigos deixam de ser atualizados e podem ser apagados. Por favor, ajuste os seus scripts, visualizações e definições de histórico.",
+          "nl": "De bibliotheek 'cul' is bijgewerkt naar versie 1.0.0 en heeft enkele datapunten hernoemd: 'battery' werd 'batteryLow' en 'batteryState', 'window' en 'isopen' werden 'open', 'valveposition' werd 'valvePosition'. De oude states worden niet meer bijgewerkt en kunnen worden verwijderd. Pas uw scripts, visualisaties en history-instellingen aan.",
+          "fr": "La bibliothèque « cul » a été mise à jour vers la version 1.0.0 et a renommé certains points de données : « battery » est devenu « batteryLow » et « batteryState », « window » et « isopen » sont devenus « open », « valveposition » est devenu « valvePosition ». Les anciens états ne sont plus mis à jour et peuvent être supprimés. Veuillez adapter vos scripts, visualisations et paramètres d'historique.",
+          "it": "La libreria 'cul' è stata aggiornata alla versione 1.0.0 e ha rinominato alcuni datapoint: 'battery' è diventato 'batteryLow' e 'batteryState', 'window' e 'isopen' sono diventati 'open', 'valveposition' è diventato 'valvePosition'. I vecchi stati non vengono più aggiornati e possono essere eliminati. Si prega di adattare script, visualizzazioni e impostazioni della cronologia.",
+          "es": "La biblioteca 'cul' se ha actualizado a la versión 1.0.0 y ha renombrado algunos puntos de datos: 'battery' pasó a ser 'batteryLow' y 'batteryState', 'window' e 'isopen' pasaron a ser 'open', 'valveposition' pasó a ser 'valvePosition'. Los estados antiguos ya no se actualizan y pueden eliminarse. Por favor, adapte sus scripts, visualizaciones y ajustes de historial.",
+          "pl": "Biblioteka „cul” została zaktualizowana do wersji 1.0.0 i zmieniła nazwy niektórych punktów danych: „battery” to teraz „batteryLow” i „batteryState”, „window” oraz „isopen” to teraz „open”, a „valveposition” to „valvePosition”. Stare stany nie są już aktualizowane i można je usunąć. Prosimy o dostosowanie skryptów, wizualizacji i ustawień historii.",
+          "uk": "Бібліотеку «cul» оновлено до версії 1.0.0, при цьому деякі точки даних було перейменовано: «battery» стала «batteryLow» і «batteryState», «window» та «isopen» стали «open», «valveposition» стала «valvePosition». Старі стани більше не оновлюються і їх можна видалити. Будь ласка, адаптуйте свої скрипти, візуалізації та налаштування історії.",
+          "zh-cn": "“cul”库已更新至 1.0.0 版本，部分数据点已重命名：“battery”改为“batteryLow”和“batteryState”，“window”和“isopen”改为“open”，“valveposition”改为“valvePosition”。旧的状态不再更新，可以删除。请相应调整您的脚本、可视化和历史记录设置。"
+        },
+        "link": "https://github.com/ioBroker/ioBroker.cul/blob/master/README.md#changelog",
+        "linkText": {
+          "en": "Changelog",
+          "de": "Changelog",
+          "ru": "История изменений",
+          "pt": "Registo de alterações",
+          "nl": "Changelog",
+          "fr": "Journal des modifications",
+          "it": "Registro delle modifiche",
+          "es": "Registro de cambios",
+          "pl": "Lista zmian",
+          "uk": "Історія змін",
+          "zh-cn": "更新日志"
+        },
+        "level": "warn",
+        "buttons": [
+          "agree",
+          "cancel"
+        ]
+      }
+    ],
     "titleLang": {
       "en": "CUL/culfw",
       "de": "CUL/culfw",
