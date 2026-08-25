@@ -1,13 +1,10 @@
 {
     "Baud rate": "Débit en bauds",
-    "CUL adapter settings": "Paramètres de l'adaptateur CUL",
     "Experimental": "Expérimental",
     "IP/Hostname": "IP / nom d'hôte",
     "Mode": "Mode",
     "Not available": "Indisponible",
-    "Not ports found": "Pas de ports trouvés",
     "Port": "Port",
-    "Select port": "Sélectionnez le port",
     "Serial port": "Port série",
     "Type": "Type"
 }

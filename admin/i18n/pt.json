@@ -1,13 +1,10 @@
 {
     "Baud rate": "Taxa de transmissão de dados",
-    "CUL adapter settings": "Configurações do adaptador CUL",
     "Experimental": "Experimental",
     "IP/Hostname": "IP / nome do host",
     "Mode": "Modo",
     "Not available": "Não disponível",
-    "Not ports found": "Nenhuma interface serial encontrada",
     "Port": "Porta",
-    "Select port": "Selecione a interface serial",
     "Serial port": "Interface serial",
     "Type": "Tipo"
 }

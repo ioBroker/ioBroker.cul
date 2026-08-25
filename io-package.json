@@ -90,7 +90,6 @@
         "zh-cn": "在启动时检查所有必需的对象是否已存在（Sentry IOBROKER-CUL-C）\n修复Moritz设备崩溃案例（Sentry IOBROKER-CUL-7）"
       }
     },
-    "title": "CUL/culfw",
     "titleLang": {
       "en": "CUL/culfw",
       "de": "CUL/culfw",
@@ -118,10 +117,8 @@
     "platform": "Javascript/Node.js",
     "mode": "daemon",
     "loglevel": "info",
-    "license": "GPL-2.0-or-later",
     "enabled": true,
     "messagebox": true,
-    "materialize": true,
     "compact": true,
     "icon": "busware.jpg",
     "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.cul/master/admin/busware.jpg",
@@ -145,7 +142,7 @@
     ],
     "dependencies": [
       {
-        "js-controller": ">=2.0.0"
+        "js-controller": ">=6.0.11"
       }
     ],
     "adminUI": {
@@ -158,7 +155,16 @@
     },
     "connectionType": "local",
     "dataSource": "push",
-    "tier": 2
+    "tier": 2,
+    "licenseInformation": {
+      "type": "free",
+      "license": "GPL-2.0-or-later"
+    },
+    "globalDependencies": [
+      {
+        "admin": ">=7.0.0"
+      }
+    ]
   },
   "native": {
     "serialport": "",
@@ -166,7 +172,8 @@
     "mode": "SlowRF",
     "type": "cul",
     "ip": "127.0.0.1",
-    "port": "23"
+    "port": 23,
+    "experimental": false
   },
   "objects": [
     {
@@ -189,8 +196,25 @@
       },
       "common": {},
       "native": {
-        "cmd": {
+        "battery": {
           "type": "number",
+          "list": [
+            "ok",
+            "empty",
+            "replaced"
+          ],
+          "read": true,
+          "write": false,
+          "role": "indicator"
+        },
+        "batteryLow": {
+          "type": "boolean",
+          "read": true,
+          "write": false,
+          "role": "indicator.lowbat"
+        },
+        "batteryState": {
+          "type": "string",
           "read": true,
           "write": false,
           "role": "state"
@@ -201,11 +225,38 @@
           "write": false,
           "role": "indicator"
         },
+        "cmd": {
+          "type": "number",
+          "read": true,
+          "write": false,
+          "role": "state"
+        },
+        "cmdRaw": {
+          "type": "string",
+          "read": true,
+          "write": true,
+          "role": "state"
+        },
         "extended": {
           "type": "boolean",
           "read": true,
           "write": false,
           "role": "indicator"
+        },
+        "humidity": {
+          "type": "number",
+          "unit": "%",
+          "min": 0,
+          "max": 100,
+          "read": true,
+          "write": false,
+          "role": "value.humidity"
+        },
+        "open": {
+          "type": "boolean",
+          "read": true,
+          "write": false,
+          "role": "sensor.window"
         },
         "response": {
           "type": "boolean",
@@ -220,31 +271,20 @@
           "write": false,
           "role": "value.temperature"
         },
-        "humidity": {
+        "undefined": {
+          "type": "string",
+          "read": true,
+          "write": false,
+          "role": "state"
+        },
+        "valvePosition": {
           "type": "number",
           "unit": "%",
           "min": 0,
           "max": 100,
           "read": true,
           "write": false,
-          "role": "value.humidity"
-        },
-        "battery": {
-          "type": "number",
-          "list": [
-            "ok",
-            "empty",
-            "replaced"
-          ],
-          "read": true,
-          "write": false,
-          "role": "indicator"
-        },
-        "undefined": {
-          "type": "string",
-          "read": true,
-          "write": false,
-          "role": "state"
+          "role": "value.valve"
         }
       }
     }

@@ -1,5 +1,9 @@
 .idea
 node_modules
 .DS_Store
-package-lock.json
 mqttServer.js
+build
+*.tsbuildinfo
+iob_npm.done
+#ignore .commitinfo created by ioBroker release script
+.commitinfo

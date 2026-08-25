@@ -1,13 +1,10 @@
 {
     "Baud rate": "波特率",
-    "CUL adapter settings": "CUL适配器设置",
     "Experimental": "实验性",
     "IP/Hostname": "IP /主机名",
     "Mode": "模式",
     "Not available": "不可用",
-    "Not ports found": "端口未找到",
     "Port": "端口",
-    "Select port": "选择串口",
     "Serial port": "串口",
     "Type": "类型"
 }

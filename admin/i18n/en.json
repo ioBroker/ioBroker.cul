@@ -1,13 +1,10 @@
 {
     "Baud rate": "Baud rate",
-    "CUL adapter settings": "CUL instance settings",
     "Experimental": "Experimental",
     "IP/Hostname": "IP/Hostname",
     "Mode": "Mode",
     "Not available": "Not available",
-    "Not ports found": "No ports found",
     "Port": "Port",
-    "Select port": "Select serial port",
     "Serial port": "Serial port",
     "Type": "Type"
 }

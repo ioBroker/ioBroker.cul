@@ -1,13 +1,10 @@
 {
     "Baud rate": "Baudrate",
-    "CUL adapter settings": "CUL Instanz-Einstellungen",
     "Experimental": "Experimentelle Funktionen aktivieren",
     "IP/Hostname": "IP/Hostname",
     "Mode": "Modus",
     "Not available": "Nicht verfügbar",
-    "Not ports found": "Keine seriellen Schnittstellen gefunden",
     "Port": "Port",
-    "Select port": "Serielle Schnittstelle auswählen",
     "Serial port": "Serielle Schnittstelle",
     "Type": "Typ"
 }

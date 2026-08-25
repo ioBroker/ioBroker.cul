@@ -1,13 +1,10 @@
 {
     "Baud rate": "Скорость",
-    "CUL adapter settings": "Настройки CUL Драйвера",
     "Experimental": "Экспериментальный режим",
     "IP/Hostname": "IP/Hostname",
     "Mode": "Режим",
     "Not available": "Нет в наличии",
-    "Not ports found": "Не найдены порты",
     "Port": "Порт",
-    "Select port": "Выберите порт",
     "Serial port": "Серийный порт",
     "Type": "Тип"
 }

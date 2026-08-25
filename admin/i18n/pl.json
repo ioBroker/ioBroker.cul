@@ -1,13 +1,10 @@
 {
     "Baud rate": "Szybkość transmisji",
-    "CUL adapter settings": "Ustawienia adaptera CUL",
     "Experimental": "Eksperymentalny",
     "IP/Hostname": "IP / nazwa hosta",
     "Mode": "Tryb",
     "Not available": "Niedostępne",
-    "Not ports found": "Nie znaleziono portów",
     "Port": "Port",
-    "Select port": "Wybierz port",
     "Serial port": "Port szeregowy",
     "Type": "Typ"
 }

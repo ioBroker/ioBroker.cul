@@ -39,6 +39,16 @@ Javascript/Node.js based `Busware CUL USB / culfw` adapter
 -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (bluefox) BREAKING: The adapter requires node.js >= 22, js-controller >= 6.0.11 and admin >= 7.0.0 now
+* (bluefox) The adapter was rewritten in TypeScript. The sources are in `src/`, the published code in `build/`
+* (bluefox) Updated the `cul` package to 1.0.0. It uses serialport 13, so no build tools are required for the installation any more
+* (bluefox) BREAKING: `cul` 1.0.0 renamed some datapoints: `battery` is now `batteryLow`/`batteryState`, `window`/`isopen` is now `open`, `valveposition` is now `valvePosition`. The old states are not written any more and can be deleted
+* (bluefox) Fixed the swapped `Mode` and `Type` labels in the configuration dialog
+* (bluefox) Fixed the port list in experimental mode: the `/dev/serial/by-id` entries were built from an undefined value
+* (bluefox) The HTML configuration dialog and the gulpfile were removed
+* (bluefox) The debug driver, that replayed `lib/rawData.txt` when the environment variable `DEBUG` was set, was removed
+
 ### 2.2.0 (2023-04-17)
 * (jpk) Select port by ID instead of name as option
 * (bluefox) Updated GUI for admin 6
@@ -109,6 +119,8 @@ Javascript/Node.js based `Busware CUL USB / culfw` adapter
 ### 0.0.3 (2015-03-03)
 * (bluefox) try to bring the adapter to state of the art
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
-[Licensed under GPLv2](LICENSE) Copyright (c) 2014-2023 hobbyquaker
+[Licensed under GPLv2](LICENSE) Copyright (c) 2014-2026 hobbyquaker

@@ -1,13 +1,10 @@
 {
     "Baud rate": "Baud rate",
-    "CUL adapter settings": "Impostazioni dell'adattatore CUL",
     "Experimental": "Sperimentale",
     "IP/Hostname": "IP / nome host",
     "Mode": "Modalità",
     "Not available": "Non disponibile",
-    "Not ports found": "Non sono state trovate porte",
     "Port": "Porta",
-    "Select port": "Seleziona la porta",
     "Serial port": "Porta seriale",
     "Type": "genere"
 }
