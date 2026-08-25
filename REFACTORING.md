@@ -642,7 +642,64 @@ Regeln beim Übersetzen:
 - Objektdefinitionen als `ioBroker.SettableObject` / `ioBroker.StateObject` typisieren, damit
   falsche `common.type` / `role`-Werte auffallen.
 
-### 6.4 Iterativ compilieren
+### 6.4 ESM-Dependencies aus dem CJS-Build laden
+
+Der Adapter-Build ist CommonJS (`module: Node16`, kein `"type": "module"` in der `package.json`) —
+das ist Pflicht, weil der Compact-Mode-Export am Dateiende `module.exports` braucht. Immer mehr
+npm-Pakete sind aber inzwischen **ESM-only** (`"type": "module"` in ihrer `package.json`), und
+`require()` scheitert daran zur Laufzeit.
+
+Erkennen, bevor man anfängt:
+
+```bash
+npm view <paket> type main exports        # "type = module"  =>  ESM-only
+```
+
+Lösung — der Wert kommt per **dynamischem `import()`**, der Typ per **type-only Import mit
+`resolution-mode`**:
+
+```ts
+// Typen: wird beim Kompilieren gelöscht, braucht aber den Hinweis, dass das Ziel ESM ist
+import type { Cul as CulDevice } from 'cul' with { 'resolution-mode': 'import' };
+
+class MyAdapter extends utils.Adapter {
+    private cul: CulDevice | null = null;
+
+    private async connect(): Promise<void> {
+        // `cul` ist ESM-only und kann aus diesem CommonJS-Build nicht require't werden
+        const { default: Cul } = await import('cul');
+        this.cul = new Cul(options);
+    }
+}
+```
+
+Das funktioniert nur, weil TypeScript `import()` bei `module: Node16`/`NodeNext` **unverändert
+stehen lässt**, statt es zu einem `require()` herunterzuschreiben. Nach dem ersten Build einmal
+kontrollieren — das ist eine 10-Sekunden-Prüfung, die viel Sucherei spart:
+
+```bash
+grep -n "import(" build/main.js         # muss noch da sein, kein require()
+node -e "require('./build/main.js')"    # lädt das Modul wirklich?
+```
+
+Fallstricke:
+
+- **Ohne `with { 'resolution-mode': 'import' }`** meldet `tsc` `TS1541: Type-only import of an
+  ECMAScript module from a CommonJS module must have a 'resolution-mode' attribute`.
+- **`typeof import('paket').Klasse`** als Feldtyp verbietet die ESLint-Regel
+  `@typescript-eslint/consistent-type-imports`. Stattdessen `import type { Klasse } from 'paket';`
+  und dann `private feld: typeof Klasse | null = null;`.
+- **Modulnamen nicht doppelt vergeben:** `import type { Cul }` und lokal
+  `const { default: Cul } = await import('cul')` beißen sich. Den Typ umbenennen
+  (`import type { Cul as CulDevice }`).
+- **CJS-Pakete bleiben normale Imports.** `serialport` z. B. hat kein `"type": "module"` und wird
+  weiterhin statisch importiert. Nur ein dynamischer Import, wenn das Paket ESM ist oder — wie bei
+  nativen Modulen — der Ladefehler abgefangen werden soll.
+- Die `module`-Einstellung danach **nicht mehr anfassen**. Ein Wechsel auf `commonjs` schreibt die
+  `import()`-Aufrufe still zu `require()` um, und der Adapter stirbt erst zur Laufzeit mit
+  `ERR_REQUIRE_ESM`.
+
+### 6.5 Iterativ compilieren
 
 ```bash
 npm run build 2>&1 | head -50
@@ -795,6 +852,8 @@ Manuell prüfen:
 - **`build/` fehlt in der CI** → `build: true` in der GitHub-Action oder das `prepare`-Script vergessen.
 - **`__dirname` zeigt jetzt auf `build/`.** Jeder Pfad auf Assets außerhalb von `build/` braucht ein
   `..`: `join(__dirname, '..', 'regascripts')`. Alle `readFileSync` / `readdirSync`-Stellen durchgehen!
+- **ESM-only-Dependency im CJS-Build**: `require()` wirft `ERR_REQUIRE_ESM`. Per `await import()`
+  laden und den Typ mit `with { 'resolution-mode': 'import' }` holen, siehe Abschnitt 6.4.
 - **`require('./package.json')`** in `src/` löst nach `build/package.json` auf → auf
   `join(__dirname, '..', 'package.json')` umstellen oder den Adapternamen als Konstante schreiben.
 - **Verschwundene Config-Felder:** existierte ein Feld im HTML-Admin, fehlt aber in
