@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: 24.x
           install-command: 'npm ci'
+          type-checking: true
           lint: true
 
   # Runs adapter tests on all supported node versions and OSes
