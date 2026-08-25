@@ -1,11 +1,12 @@
 /*
  * ioBroker.cul - connects a Busware CUL / COC / SCC / CUNO running culfw to ioBroker
  *
- * Copyright (c) 2014-2026 hobbyquaker <hq@ccu.io>, bluefox <dogafox@gmail.com>
+ * Copyright (c) 2014-2017 hobbyquaker <hq@ccu.io>
+ * Copyright (c) 2014-2026 bluefox <dogafox@gmail.com>
  *
  * Licensed under GPL-2.0-or-later, see LICENSE
  */
-import * as utils from '@iobroker/adapter-core';
+import { Adapter, type AdapterOptions } from '@iobroker/adapter-core';
 import { createConnection, type Socket } from 'node:net';
 
 import type { SerialPort } from 'serialport';
@@ -33,7 +34,7 @@ interface SerialPortInfo {
     friendlyName?: string;
 }
 
-class CulAdapter extends utils.Adapter {
+class CulAdapter extends Adapter {
     /** The connection to the CUL. `cul` reconnects on its own, so this is created only once */
     private cul: CulDevice | null = null;
     /** `serialport` is a native module and may be missing - it is therefore loaded lazily */
@@ -48,7 +49,7 @@ class CulAdapter extends utils.Adapter {
     private checkConnectionTimer: ioBroker.Timeout | null = null;
     private unloaded = false;
 
-    public constructor(options: Partial<utils.AdapterOptions> = {}) {
+    public constructor(options: Partial<AdapterOptions> = {}) {
         super({ ...options, name: 'cul' });
 
         this.on('ready', () => void this.onReady());
@@ -534,7 +535,7 @@ class CulAdapter extends utils.Adapter {
 
 if (require.main !== module) {
     // Export the constructor in compact mode
-    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new CulAdapter(options);
+    module.exports = (options: Partial<AdapterOptions> | undefined) => new CulAdapter(options);
 } else {
     // otherwise start the instance directly
     (() => new CulAdapter())();
