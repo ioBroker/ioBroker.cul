@@ -786,19 +786,85 @@ Der Integrationstest bricht ab, wenn auf der Maschine **schon ein js-controller 
 
 ### 8.2 GitHub Action
 
-`.github/workflows/test-and-release.yml` aus dem Referenzprojekt übernehmen. Entscheidend:
+`.github/workflows/test-and-release.yml` **muss auf die ioBroker-Actions umgestellt werden**. Alte
+Workflows bauen jeden Job aus Einzelschritten zusammen (`actions/checkout`, `actions/setup-node`,
+`npm install`, `npm test`, im Deploy-Job zusätzlich `::set-output` und `actions/create-release@v1`).
+Das ist doppelt veraltet — `::set-output` ist abgeschaltet und `actions/create-release` archiviert —
+und muss bei jedem Action-Update per Dependabot-PR nachgezogen werden. Die drei Composite-Actions
+kapseln das und werden zentral gepflegt:
+
+| Job | Action |
+| --- | --- |
+| `check-and-lint` | `ioBroker/testing-action-check@v2` |
+| `adapter-tests` | `ioBroker/testing-action-adapter@v1` |
+| `deploy` | `ioBroker/testing-action-deploy@v1` |
+
+Jeder Job besteht danach aus genau **einem** Step — kein eigenes `checkout`, `setup-node`,
+`npm ci` mehr, das macht die Action:
 
 ```yaml
+jobs:
+  check-and-lint:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ioBroker/testing-action-check@v2
+        with:
+          node-version: 24.x
+          install-command: 'npm ci'   # Default ist schon 'npm ci', nur bei Abweichung nötig
+          type-checking: true         # <- ohne das wird 'npm run check' übersprungen
+          lint: true                  # <- ohne das wird 'npm run lint' übersprungen
+
+  adapter-tests:
+    needs: [ check-and-lint ]
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x, 26.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
       - uses: ioBroker/testing-action-adapter@v1
         with:
           node-version: ${{ matrix.node-version }}
           os: ${{ matrix.os }}
-          build: true          # <- ohne das läuft der TS-Build in der CI nicht
+          build: true                 # <- ohne das läuft der TS-Build in der CI nicht
+
+  deploy:
+    needs: [ check-and-lint, adapter-tests ]
+    permissions:
+      contents: write                 # GitHub-Release
+      id-token: write                 # npm trusted publishing
+    if: |
+      contains(github.event.head_commit.message, '[skip ci]') == false &&
+      github.event_name == 'push' &&
+      startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ioBroker/testing-action-deploy@v1
+        with:
+          node-version: '24.x'
+          build: true                 # <- auch hier, sonst wird ohne build/ publiziert
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          sentry-project: 'iobroker-<adapter>'
+          sentry-version-prefix: 'iobroker.<adapter>'
 ```
 
-Im Deploy-Job (`ioBroker/testing-action-deploy@v1`) ebenfalls `build: true`.
-Node-Matrix auf aktuellen Stand bringen (`[22.x, 24.x, 26.x]`, `check-and-lint` auf `24.x`) und
-mit `engines` in `package.json` konsistent halten.
+Zu beachten:
+
+- **`type-checking` und `lint` sind standardmäßig `false`.** Wer sie nicht setzt, hat einen
+  Workflow, der grün wird, ohne je `npm run check` oder `npm run lint` ausgeführt zu haben.
+  `testing-action-check` ruft `npm run test:package` dagegen immer auf (abschaltbar mit
+  `test-command: 'false'`).
+- **`build: true` gehört in `adapter-tests` und `deploy`.** Fehlt es, existiert `build/` im Runner
+  nicht — die Tests starten einen Adapter ohne Code, und der Deploy publiziert ein leeres Paket.
+- Die Kommandos sind überschreibbar (`type-checking-command`, `lint-command`, `test-command`),
+  falls die Scripts in der `package.json` anders heißen.
+- Node-Matrix auf aktuellen Stand bringen (`[22.x, 24.x, 26.x]`, `check-and-lint` auf `24.x`) und
+  mit `engines` in `package.json` konsistent halten.
+- Die Actions pinnen `actions/checkout` und `actions/setup-node` selbst. Nach der Umstellung sind
+  Dependabot-PRs, die diese beiden Versionen anheben wollen, gegenstandslos.
 
 ---
 
@@ -842,6 +908,8 @@ Manuell prüfen:
       Modul-Globals; Handler sind private Methoden (`onReady`, `onStateChange`, `onMessage`, `onUnload`)
 - [ ] keine globalen `setTimeout` / `setInterval` mehr im Backend
 - [ ] `onUnload` schließt alles, was `onReady` geöffnet hat
+- [ ] `test-and-release.yml` nutzt `ioBroker/testing-action-check@v2` / `-adapter@v1` / `-deploy@v1`
+      statt Einzelschritte, mit `type-checking: true`, `lint: true` und `build: true`
 - [ ] Compact-Mode-Export am Ende von `main.ts` vorhanden
 - [ ] Adapter in einer echten Installation gestartet, Konfigdialog geöffnet und gespeichert
 
