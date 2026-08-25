@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "cul",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "news": {
+      "3.0.1": {
+        "en": "The serial port can be entered manually now, so a symlink below `/dev/serial/by-id` can be used (#150)\nThe port list offers the `/dev/serial/by-id` symlinks in addition to the `/dev/ttyUSBx` devices on Linux. They are not hidden behind the experimental option any more and do not replace the device paths any more",
+        "de": "Der serielle Port kann nun manuell eingegeben werden, sodass ein symbolischer Link unterhalb von `/dev/serial/by-id` verwendet werden kann (#150)\nDie Portliste bietet unter Linux neben den Geräten unter `/dev/ttyUSBx` auch die symbolischen Links `/dev/serial/by-id` an. Diese sind nicht länger hinter der experimentellen Option versteckt und ersetzen auch nicht mehr die Gerätepfade.",
+        "ru": "Теперь последовательный порт можно ввести вручную, поэтому можно использовать символическую ссылку в каталоге `/dev/serial/by-id` (#150)\nВ списке портов, помимо устройств `/dev/ttyUSBx` в Linux, отображаются символические ссылки `/dev/serial/by-id`. Они больше не скрыты за экспериментальной опцией и не заменяют пути к устройствам.",
+        "pt": "Agora é possível inserir a porta serial manualmente, então um link simbólico abaixo de `/dev/serial/by-id` pode ser usado (#150)\nA lista de portas oferece os links simbólicos `/dev/serial/by-id` além dos dispositivos `/dev/ttyUSBx` no Linux. Eles não estão mais ocultos pela opção experimental e não substituem mais os caminhos dos dispositivos.",
+        "nl": "De seriële poort kan nu handmatig worden ingevoerd, dus er kan een symbolische link onder `/dev/serial/by-id` worden gebruikt (#150)\nDe poortlijst biedt naast de `/dev/ttyUSBx`-apparaten op Linux ook de symbolische links `/dev/serial/by-id` aan. Deze zijn niet langer verborgen achter de experimentele optie en vervangen de apparaatpaden niet meer.",
+        "fr": "Le port série peut désormais être saisi manuellement, un lien symbolique sous `/dev/serial/by-id` peut donc être utilisé (#150)\nLa liste des ports propose les liens symboliques `/dev/serial/by-id` en plus des périphériques `/dev/ttyUSBx` sous Linux. Ils ne sont plus masqués par une option expérimentale et ne remplacent plus les chemins d'accès aux périphériques.",
+        "it": "Ora è possibile inserire manualmente la porta seriale, quindi è possibile utilizzare un collegamento simbolico sotto `/dev/serial/by-id` (#150)\nL'elenco delle porte offre i collegamenti simbolici `/dev/serial/by-id` oltre ai dispositivi `/dev/ttyUSBx` su Linux. Non sono più nascosti dietro l'opzione sperimentale e non sostituiscono più i percorsi dei dispositivi.",
+        "es": "Ahora se puede acceder al puerto serie manualmente, por lo que se puede utilizar un enlace simbólico debajo de `/dev/serial/by-id` (#150).\nLa lista de puertos ofrece los enlaces simbólicos `/dev/serial/by-id` además de los dispositivos `/dev/ttyUSBx` en Linux. Ya no están ocultos tras la opción experimental y ya no reemplazan las rutas de los dispositivos.",
+        "pl": "Teraz można ręcznie wprowadzić numer portu szeregowego, dlatego można użyć dowiązania symbolicznego `/dev/serial/by-id` (#150)\nLista portów oferuje dowiązania symboliczne `/dev/serial/by-id` oprócz urządzeń `/dev/ttyUSBx` w systemie Linux. Nie są one już ukryte za opcją eksperymentalną i nie zastępują ścieżek urządzeń.",
+        "uk": "Тепер послідовний порт можна ввести вручну, тому можна використовувати символічне посилання нижче `/dev/serial/by-id` (#150)\nСписок портів пропонує символічні посилання `/dev/serial/by-id` на додаток до пристроїв `/dev/ttyUSBx` у Linux. Вони більше не приховані за експериментальною опцією та більше не замінюють шляхи до пристроїв.",
+        "zh-cn": "现在可以手动输入串口号，因此可以使用 `/dev/serial/by-id` 下的符号链接（#150）\n端口列表除了提供 Linux 上的 `/dev/ttyUSBx` 设备外，还提供了 `/dev/serial/by-id` 符号链接。它们不再隐藏在实验性选项之后，也不会再替换设备路径。"
+      },
       "3.0.0": {
         "en": "BREAKING: The adapter requires node.js >= 22, js-controller >= 6.0.11 and admin >= 7.0.0 now\nThe adapter was rewritten in TypeScript. The sources are in `src/`, the published code in `build/`\nUpdated the `cul` package to 1.0.0. It uses serialport 13, so no build tools are required for the installation any more\nBREAKING: `cul` 1.0.0 renamed some datapoints: `battery` is now `batteryLow`/`batteryState`, `window`/`isopen` is now `open`, `valveposition` is now `valvePosition`. The old states are not written any more and can be deleted\nFixed the swapped `Mode` and `Type` labels in the configuration dialog\nFixed the port list in experimental mode: the `/dev/serial/by-id` entries were built from an undefined value\nThe HTML configuration dialog and the gulpfile were removed\nThe debug driver, that replayed `lib/rawData.txt` when the environment variable `DEBUG` was set, was removed",
         "de": "Eilmeldung: Der Adapter benötigt jetzt Node.js >= 22, js-controller >= 6.0.11 und admin >= 7.0.0.\nDer Adapter wurde in TypeScript neu geschrieben. Die Quelldateien befinden sich in `src/`, der veröffentlichte Code in `build/`.\nDas Paket `cul` wurde auf Version 1.0.0 aktualisiert. Es verwendet serielle Schnittstelle 13, daher sind für die Installation keine Build-Tools mehr erforderlich.\nWICHTIG: In `cul` 1.0.0 wurden einige Datenpunkte umbenannt: `battery` heißt jetzt `batteryLow`/`batteryState`, `window`/`isopen` heißt jetzt `open` und `valveposition` heißt jetzt `valvePosition`. Die alten Zustände werden nicht mehr gespeichert und können gelöscht werden.\nDie vertauschten Bezeichnungen „Modus“ und „Typ“ im Konfigurationsdialog wurden korrigiert.\nDie Portliste im experimentellen Modus wurde korrigiert: Die Einträge `/dev/serial/by-id` wurden aus einem undefinierten Wert erstellt.\nDer HTML-Konfigurationsdialog und die gulpfile-Datei wurden entfernt.\nDer Debug-Treiber, der die Datei `lib/rawData.txt` wiedergab, wenn die Umgebungsvariable `DEBUG` gesetzt war, wurde entfernt.",
@@ -77,18 +90,6 @@
         "es": "prevenir caso de accidente (Sentry IOBROKER-CUL-D)",
         "pl": "zapobiegaj awariom (Sentry IOBROKER-CUL-D)",
         "zh-cn": "防止发生崩溃情况（Sentry IOBROKER-CUL-D）"
-      },
-      "1.3.3": {
-        "en": "Added raw command support with cul.write()",
-        "de": "Unterstützung für Raw-Befehle mit cul.write () hinzugefügt",
-        "ru": "Добавлена поддержка необработанных команд с cul.write ()",
-        "pt": "Adicionado suporte de comando bruto com cul.write ()",
-        "nl": "Ondersteuning voor onbewerkte opdrachten toegevoegd met cul.write ()",
-        "fr": "Ajout de la prise en charge des commandes brutes avec cul.write ()",
-        "it": "Aggiunto supporto per comandi grezzi con cul.write ()",
-        "es": "Se agregó soporte de comando sin procesar con cul.write ()",
-        "pl": "Dodano obsługę surowych poleceń z cul.write ()",
-        "zh-cn": "使用cul.write（）添加了原始命令支持"
       }
     },
     "messages": [

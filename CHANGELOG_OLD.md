@@ -1,4 +1,7 @@
 # Older changes
+## 1.3.4 (2020-12-02)
+* (Apollon77) prevent crash case (Sentry IOBROKER-CUL-D)
+
 ## 1.3.3 (2020-09-25)
 * (EvilEls) Added raw command support with cul.write()
 
