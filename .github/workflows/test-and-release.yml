@@ -27,7 +27,6 @@ jobs:
       - uses: ioBroker/testing-action-check@v2
         with:
           node-version: 24.x
-          install-command: 'npm ci'
           type-checking: true
           lint: true
 
