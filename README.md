@@ -37,9 +37,12 @@ Javascript/Node.js based `Busware CUL USB / culfw` adapter
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Removed a prepare script
+
 ### 3.0.1 (2026-08-25)
-* (bluefox) The serial port can be entered manually now, so a symlink below `/dev/serial/by-id` can be used (#150)
-* (bluefox) The port list offers the `/dev/serial/by-id` symlinks in addition to the `/dev/ttyUSBx` devices on Linux. They are not hidden behind the experimental option any more and do not replace the device paths any more
+* (@GermanBluefox) The serial port can be entered manually now, so a symlink below `/dev/serial/by-id` can be used (#150)
+* (@GermanBluefox) The port list offers the `/dev/serial/by-id` symlinks in addition to the `/dev/ttyUSBx` devices on Linux. They are not hidden behind the experimental option any more and do not replace the device paths any more
 
 ### 3.0.0 (2026-08-25)
 * (bluefox) BREAKING: The adapter requires node.js >= 22, js-controller >= 6.0.11 and admin >= 7.0.0 now
