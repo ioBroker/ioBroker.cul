@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "cul",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "news": {
+      "3.0.2": {
+        "en": "Removed a prepare script",
+        "de": "Ein Vorbereitungsskript wurde entfernt.",
+        "ru": "Удалён скрипт подготовки.",
+        "pt": "Um script de preparação foi removido.",
+        "nl": "Een voorbereidingsscript verwijderd.",
+        "fr": "Suppression d'un script de préparation",
+        "it": "Rimosso uno script di preparazione",
+        "es": "Se eliminó un script de preparación.",
+        "pl": "Usunięto skrypt przygotowawczy",
+        "uk": "Видалено сценарій підготовки",
+        "zh-cn": "移除了一个准备脚本"
+      },
       "3.0.1": {
         "en": "The serial port can be entered manually now, so a symlink below `/dev/serial/by-id` can be used (#150)\nThe port list offers the `/dev/serial/by-id` symlinks in addition to the `/dev/ttyUSBx` devices on Linux. They are not hidden behind the experimental option any more and do not replace the device paths any more",
         "de": "Der serielle Port kann nun manuell eingegeben werden, sodass ein symbolischer Link unterhalb von `/dev/serial/by-id` verwendet werden kann (#150)\nDie Portliste bietet unter Linux neben den Geräten unter `/dev/ttyUSBx` auch die symbolischen Links `/dev/serial/by-id` an. Diese sind nicht länger hinter der experimentellen Option versteckt und ersetzen auch nicht mehr die Gerätepfade.",
@@ -78,18 +91,6 @@
         "es": "Asegúrese de que cul esté conectado antes de aceptar cambios de estado (Sentry IOBROKER-CUL-R)",
         "pl": "Upewnij się, że cul jest podłączony przed zaakceptowaniem zmian stanu (Sentry IOBROKER-CUL-R)",
         "zh-cn": "在接受状态更改之前，请确保已连接cul（Sentry IOBROKER-CUL-R）"
-      },
-      "1.3.4": {
-        "en": "prevent crash case (Sentry IOBROKER-CUL-D)",
-        "de": "Absturz verhindern (Sentry IOBROKER-CUL-D)",
-        "ru": "случай предотвращения сбоя (Sentry IOBROKER-CUL-D)",
-        "pt": "evitar caso de travamento (Sentry IOBROKER-CUL-D)",
-        "nl": "crashgeval voorkomen (Sentry IOBROKER-CUL-D)",
-        "fr": "éviter les cas de crash (Sentry IOBROKER-CUL-D)",
-        "it": "prevenire crash case (Sentry IOBROKER-CUL-D)",
-        "es": "prevenir caso de accidente (Sentry IOBROKER-CUL-D)",
-        "pl": "zapobiegaj awariom (Sentry IOBROKER-CUL-D)",
-        "zh-cn": "防止发生崩溃情况（Sentry IOBROKER-CUL-D）"
       }
     },
     "messages": [

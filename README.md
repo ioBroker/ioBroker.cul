@@ -37,7 +37,7 @@ Javascript/Node.js based `Busware CUL USB / culfw` adapter
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.0.2 (2026-09-02)
 * (@GermanBluefox) Removed a prepare script
 
 ### 3.0.1 (2026-08-25)
@@ -62,9 +62,6 @@ Javascript/Node.js based `Busware CUL USB / culfw` adapter
 * IMPORTANT: Nodejs 12.x is now needed at least!
 * (Apollon77/achimmm) Add support for devices with address 0
 * (bluefox) Updated serialport package
-
-### 1.3.5 (2021-04-12)
-* (Apollon77) Make sure that cul is connected before accepting state changes (Sentry IOBROKER-CUL-R)
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

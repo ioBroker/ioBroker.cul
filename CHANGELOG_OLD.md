@@ -1,4 +1,7 @@
 # Older changes
+## 1.3.5 (2021-04-12)
+* (Apollon77) Make sure that cul is connected before accepting state changes (Sentry IOBROKER-CUL-R)
+
 ## 1.3.4 (2020-12-02)
 * (Apollon77) prevent crash case (Sentry IOBROKER-CUL-D)
 
