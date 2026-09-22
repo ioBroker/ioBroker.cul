@@ -8,16 +8,17 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'monthly'
-      time: '04:00'
+      interval: 'cron'
       timezone: 'Europe/Berlin'
+      cronjob: '44 2 5 * *'
+    open-pull-requests-limit: 15
 
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'monthly'
-      time: '08:00'
+      interval: 'cron'
       timezone: 'Europe/Berlin'
+      cronjob: '44 2 5 * *'
     open-pull-requests-limit: 20
     versioning-strategy: 'increase'
     cooldown:
