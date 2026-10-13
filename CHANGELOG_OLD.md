@@ -1,4 +1,9 @@
 # Older changes
+## 2.0.2 (2022-05-11)
+* IMPORTANT: Nodejs 12.x is now needed at least!
+* (Apollon77/achimmm) Add support for devices with address 0
+* (bluefox) Updated serialport package
+
 ## 1.3.5 (2021-04-12)
 * (Apollon77) Make sure that cul is connected before accepting state changes (Sentry IOBROKER-CUL-R)
 

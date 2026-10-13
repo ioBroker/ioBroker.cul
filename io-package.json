@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "cul",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "news": {
+      "3.0.3": {
+        "en": "The adapter reports the serial port it has open to js-controller 8, which keeps a per-host registry of the occupied resources (`system.host.<name>.usedResources`). A second instance configured for the same stick is visible as a conflict, and the log names the other instance before the port is opened. In CUNO mode nothing is reported: the configured port belongs to that device on the network, so it is no longer listed as occupied on this host either. An older js-controller is unaffected",
+        "de": "Der Adapter meldet seinen offenen seriellen Port an JS-Controller 8, der die belegten Ressourcen pro Host registriert (`system.host. <name>.usedResources`). Eine zweite Instanz für denselben Stick ist als Konflikt sichtbar und das Log benennt sie, bevor der Port geöffnet wird. Im CUNO-Modus wird nichts gemeldet: Der konfigurierte Port gehört zu dem Gerät im Netzwerk, also ist er auch auf diesem Host nicht mehr belegt. Ein älterer JS-Controller ist unangetastet",
+        "ru": "Адаптер сообщает об открытом последовательном порте js-controller 8, который ведет реестр занятых ресурсов на каждом хосте (`system.host). <name>.Используемые ресурсы»). Второй экземпляр, настроенный для той же флешки, виден как конфликт, а другой экземпляр перед открытием порта присваивается имя другому экземпляру. В режиме CUNO ничего не сообщается: настроенный порт принадлежит этому устройству в сети, поэтому он также больше не указан как занятый на этом хосте. Более старый js-контроллер не затронут",
+        "pt": "O adaptador relata a porta serial aberta ao js-controller 8, que mantém um registro por host dos recursos ocupados (`system.host. <name>.usedResource`). Uma segunda instância configurada para o mesmo stick é visível como um conflito, e o log nomeia a outra antes da porta ser aberta. No modo CUNO, nada é relatado: a porta configurada pertence ao dispositivo na rede e também não está mais ocupada neste host. Um controlador js antigo não é afetado",
+        "nl": "De adapter meldt welke seriële poort open staat voor js-controller 8, die per host een register bijhoudt van de bezette bronnen (`system.host). <name>. Gebruikte bronnen`). Een tweede instantie die voor dezelfde stick is geconfigureerd, is zichtbaar als een conflict, en in het logboek wordt de andere instantie genoemd voordat de poort wordt geopend. In de CUNO-modus wordt niets gerapporteerd: de geconfigureerde poort is van dat apparaat op het netwerk, dus het wordt op deze host ook niet langer als bezet vermeld. Een oudere js-controller is niet beïnvloed",
+        "fr": "L'adaptateur indique le port série ouvert à js-controller 8, qui tient un registre des ressources occupées par hôte (`system.host). <name>. Used Resources`). Une deuxième instance configurée pour le même stick est visible comme un conflit, et le journal nomme l'autre instance avant l'ouverture du port. En mode CUNO, rien n'est signalé : le port configuré appartient à cet appareil du réseau, il n'est donc plus répertorié comme occupé sur cet hôte. Un ancien contrôleur JS n'est pas affecté",
+        "it": "L'adattatore riporta la porta seriale aperta a js-controller 8, che registra le risorse occupate per host (`system.host. <name>.Risorse usate`). Una seconda istanza configurata per la stessa chiavetta è in conflitto e il log nomina l'altra prima di aprire la porta. In modalità CUNO non viene segnalato nulla: la porta configurata appartiene a quel dispositivo in rete, quindi non è più occupata. Un vecchio js-controller è inalterato",
+        "es": "El adaptador informa del puerto serie que tiene abierto al js-controller 8, que guarda un registro por host de los recursos ocupados (`system.host. <name>.Used Resources`). Una segunda instancia configurada para el mismo dispositivo aparece como conflicto y el registro nombra a la otra antes de abrir el puerto. En el modo CUNO no se informa de nada: el puerto configurado pertenece a ese dispositivo de la red, por lo que tampoco aparece como ocupado en este host. Un controlador js antiguo no se ve afectado",
+        "pl": "Adapter zgłasza otwarty port szeregowy do js-controller 8, który przechowuje rejestr zajmowanych zasobów na hosta (`system.host. <name>.UseDResources`). Druga instancja skonfigurowana dla tego samego drążka jest widoczna jako konflikt, a dziennik nazywa drugą instancję przed otwarciem portu. W trybie CUNO nic nie jest zgłaszane: skonfigurowany port należy do tego urządzenia w sieci, więc nie jest już wymieniony jako zajęty na tym hoście. Starszy kontroler js nie ma wpływu",
+        "uk": "Адаптер повідомляє про послідовний порт, який він має, до js-controller 8, який зберігає реєстр зайнятих ресурсів для кожного хоста (`system.host. <name>.Використовувані ресурси '). Другий екземпляр, налаштований для тієї ж флешки, відображається як конфлікт, а журнал називає інший екземпляр перед відкриттям порту. У режимі CUNO нічого не повідомляється: налаштований порт належить цьому пристрою в мережі, тому він більше не вказаний як зайнятий на цьому хості. Старий js-контролер не впливає",
+        "zh-cn": "适配器将其打开的串行端口报告给 js-controller 8，后者为每个主机保留了占用资源的注册表（`system.host。<name>.usedResources`)。为同一摇杆配置的第二个实例显示为冲突，并且日志会在打开端口之前命名另一个实例。在 CUNO 模式下，不会报告任何内容：配置的端口属于网络上的该设备，因此该主机上也不会再将其列为已占用。较旧的 js-controller 不受影响"
+      },
       "3.0.2": {
         "en": "Removed a prepare script",
         "de": "Ein Vorbereitungsskript wurde entfernt.",
@@ -79,18 +92,6 @@
         "es": "IMPORTANTE: ¡Ahora se necesita al menos Nodejs 12.x!\nAgregar soporte para dispositivos con dirección 0\nPaquete de puerto serie actualizado",
         "pl": "WAŻNE: Nodejs 12.x jest teraz potrzebny przynajmniej!\nDodaj wsparcie dla urządzeń z adresem 0\nZaktualizowany pakiet portu szeregowego",
         "zh-cn": "重要提示：现在至少需要 Nodejs 12.x！\n添加对地址为 0 的设备的支持\n更新了串口包"
-      },
-      "1.3.5": {
-        "en": "Make sure that cul is connected before accepting state changes (Sentry IOBROKER-CUL-R)",
-        "de": "Stellen Sie sicher, dass cul verbunden ist, bevor Sie Statusänderungen akzeptieren (Sentry IOBROKER-CUL-R).",
-        "ru": "Перед принятием изменений состояния убедитесь, что cul подключен (Sentry IOBROKER-CUL-R)",
-        "pt": "Certifique-se de que cul está conectado antes de aceitar as mudanças de estado (Sentry IOBROKER-CUL-R)",
-        "nl": "Zorg ervoor dat cul is verbonden voordat u statuswijzigingen accepteert (Sentry IOBROKER-CUL-R)",
-        "fr": "Assurez-vous que cul est connecté avant d'accepter les changements d'état (Sentry IOBROKER-CUL-R)",
-        "it": "Assicurati che cul sia connesso prima di accettare i cambiamenti di stato (Sentry IOBROKER-CUL-R)",
-        "es": "Asegúrese de que cul esté conectado antes de aceptar cambios de estado (Sentry IOBROKER-CUL-R)",
-        "pl": "Upewnij się, że cul jest podłączony przed zaakceptowaniem zmian stanu (Sentry IOBROKER-CUL-R)",
-        "zh-cn": "在接受状态更改之前，请确保已连接cul（Sentry IOBROKER-CUL-R）"
       }
     },
     "messages": [
