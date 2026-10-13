@@ -40,11 +40,18 @@ otherwise it aborts with "JS-Controller is already running!".
 | `src/main.ts` | the whole adapter: one `CulAdapter extends utils.Adapter` class |
 | `src/lib/types.ts` | queue tasks, meta roles and the `sendTo` payload shapes |
 | `src/lib/adapter-config.d.ts` | augments `ioBroker.AdapterConfig` |
+| `src/lib/usedResources.ts` | reports the open serial port to the registry of js-controller 8 |
 | `admin/jsonConfig.json` | the configuration dialog |
 | `admin/i18n/<lang>.json` | flat translations, selected by `"i18n": true` |
 
 `src/lib/adapter-config.d.ts` is hand-maintained and must be kept in sync with `native` in
 `io-package.json` **and** with `admin/jsonConfig.json` — nothing generates it.
+
+`common.declareUsedResources: true` in `io-package.json` means this instance tells js-controller 8
+itself which exclusive resources it occupies. That is the serial port in stick mode, registered in
+the `ready` handler of `cul` and freed on `close`; in CUNO mode nothing is reported. The flag also
+stops the controller from deriving an entry from `native.port` — which is the *telnet* port of a
+CUNO and never a port of this host.
 
 ### The `cul` package
 

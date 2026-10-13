@@ -12,6 +12,12 @@ import { createConnection, type Socket } from 'node:net';
 import type { SerialPort } from 'serialport';
 import type { Cul as CulDevice } from 'cul' with { 'resolution-mode': 'import' };
 import type { MetaRole, MetaRoles, PortOption, SendMessage, SendRawMessage, Task } from './lib/types';
+import {
+    freeUsedSerialPort,
+    registerUsedSerialPort,
+    reportSerialPortConflict,
+    type UsedSerialPort,
+} from './lib/usedResources';
 
 /** Serial device that is used when nothing is configured */
 const DEFAULT_SERIAL_PORT = '/dev/ttyACM0';
@@ -213,6 +219,22 @@ class CulAdapter extends Adapter {
             logger: (...args: unknown[]) => this.log.debug(args.map(arg => String(arg)).join(' ')),
         };
 
+        // Only a stick on this machine is an exclusive resource of this host. A CUNO is reached over
+        // the network, so its telnet port belongs to that device and is not occupied here.
+        const usedSerialPort: UsedSerialPort | undefined =
+            options.connectionMode === 'serial'
+                ? {
+                      port: this.config.serialport || DEFAULT_SERIAL_PORT,
+                      baudRate: Number(this.config.baudrate) || DEFAULT_BAUD_RATE,
+                  }
+                : undefined;
+
+        if (usedSerialPort) {
+            // Who else declared this port? Asked before it is opened - afterwards the operating
+            // system has decided it, and the error does not name the other instance
+            await reportSerialPortConflict(this, usedSerialPort, 'the CUL');
+        }
+
         try {
             this.cul = new Cul(options);
         } catch (e) {
@@ -224,10 +246,18 @@ class CulAdapter extends Adapter {
         // `cul` reconnects by itself, `ready` is emitted again after every successful reconnect
         this.cul.on('ready', () => {
             this.log.debug('CUL is ready');
+            if (usedSerialPort) {
+                // Reported only now: a port that could not be opened is not held by this instance
+                void registerUsedSerialPort(this, usedSerialPort);
+            }
             void this.setState('info.connection', true, true);
         });
 
         this.cul.on('close', () => {
+            if (usedSerialPort) {
+                // Free again until the reconnect of `cul` gets the port back
+                void freeUsedSerialPort(this, { port: usedSerialPort.port });
+            }
             if (!this.unloaded) {
                 void this.setState('info.connection', false, true);
             }
